@@ -1,0 +1,29 @@
+.back404-container {
+    position: relative;
+    isolation: isolate;
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem;
+    padding-top: 3.5rem; /* pt-14 */
+    min-height: 100vh;
+    background-image: url("https://res.cloudinary.com/dbleq6bwe/image/upload/v1762090098/a64cafa9-c10b-4527-919f-5f59d8ef9917_rve6aw.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Add a blurred overlay on top of the background */
+.back404-container::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* covers entire container */
+    background-color: rgba(255, 255, 255, 0.1); /* white hue (bg-white/10) */
+    backdrop-filter: blur(4px); /* blur effect (backdrop-blur-sm) */
+    -webkit-backdrop-filter: blur(4px); /* Safari support */
+    z-index: 0; /* stays behind the text */
+}
+
+/* Ensure content sits above the overlay */
+.back404-container > * {
+    position: relative;
+    z-index: 1;
+}

@@ -1,0 +1,12 @@
+.gallery-container {
+    position: relative;
+    isolation: isolate;
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem;
+    padding-top: 3.5rem; /* pt-14 */
+    min-height: 100vh;
+    background-image: url("https://res.cloudinary.com/dbleq6bwe/image/upload/v1743595978/ivgzsxw1plqftlgtt94t.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

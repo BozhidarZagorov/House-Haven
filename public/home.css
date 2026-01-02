@@ -1,0 +1,33 @@
+.background-container {
+    position: relative;
+    isolation: isolate;
+    padding-left: 1.5rem; /* px-6 */
+    padding-right: 1.5rem;
+    padding-top: 3.5rem; /* pt-14 */
+    min-height: 100vh;
+    background-image: url("https://res.cloudinary.com/dbleq6bwe/image/upload/v1743596338/fhg9gm2pne3x8axemhsh.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-container {
+    text-align: center;
+    background-color: rgba(17, 24, 39, 0.225);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+}
+
+.main-title {
+    font-size: 3rem; /* text-5xl */
+    font-weight: 600; /* font-semibold */
+    color: white;
+    line-height: 1.2;
+}
+
+.main-subtitle {
+    margin-top: 2rem;
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 500; /* font-medium */
+    color: rgb(209 213 219);
+}
