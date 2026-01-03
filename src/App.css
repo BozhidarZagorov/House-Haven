@@ -4,4 +4,5 @@
 @import "../public/header.css";
 @import "../public/contact.css";
 @import "../public/gallery.css";
-@import "../public/404.css"
+@import "../public/404.css";
+@import "../node_modules/react-day-picker/src/style.css"
