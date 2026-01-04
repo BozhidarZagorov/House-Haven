@@ -10,7 +10,6 @@ const navigation = [
     { name: 'Home', path: '/' },
     { name: 'Apartments', path: '/apartments' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'Weather', path: '/weather' },
 ]
 
 export default function Header() {

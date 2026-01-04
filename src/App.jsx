@@ -16,9 +16,6 @@ import GalleryAddPicture from './components/GalleryAddPicture';
 import GalleryPicture from './components/GalleryPicture';
 import Apartments from './components/Apartments';
 import ApartmentDetails from './components/ApartmentDetails';
-import Weather from './components/weather';
-import CurrentWeather from './components/CurrentWeather';
-import Next15Days from './components/Next15Days';
 import Footer from './components/Footer';
 
 import './App.css'
@@ -49,10 +46,6 @@ function App() {
                 <Route path="/contacts" element={<Contacts />} />
                 <Route path="/termsOfService" element={<TermsOfService />} />
                 <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
-                <Route path="/weather" element={<Weather />}>
-                    <Route index element={<CurrentWeather/>}/>
-                    <Route path='next15Days' element={<Next15Days/>}/>
-                </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
             </main>
