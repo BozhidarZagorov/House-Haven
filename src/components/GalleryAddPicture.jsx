@@ -56,7 +56,7 @@ export default function GalleryAddPicture() {
         formData.append('upload_preset', 'getUrls');
 
         try {
-            const response = await fetch(`https://api.cloudinary.com/v1_1/dbleq6bwe/image/upload`, {
+            const response = await fetch(import.meta.env.VITE_CLOUDINARY_CLOUD_NAME, {
                 method: 'POST',
                 body: formData,
             });
