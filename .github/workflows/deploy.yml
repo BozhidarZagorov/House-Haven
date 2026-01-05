@@ -3,28 +3,28 @@ name: Firebase Hosting CI/CD
 on:
   push:
     branches:
-      - main  # deploy on pushes to main branch
+      - main  # Deploy on pushes to main branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repo
-      - name: Checkout repo
+      # 1️⃣ Checkout the repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Setup Node.js
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22' 
+          node-version: '18'  # Match your project Node version
 
-      #Install dependencies
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Create .env.production from GitHub secrets
+      # 4️⃣ Create .env.production from GitHub secrets
       - name: Create .env.production
         run: |
           echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" >> .env.production
@@ -35,15 +35,22 @@ jobs:
           echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> .env.production
           echo "VITE_MEASUREMENT_ID=${{ secrets.VITE_MEASUREMENT_ID }}" >> .env.production
 
-      #  Build the Vite project
-      - name: Build Vite
+      # 5️⃣ Build Vite project
+      - name: Build Vite project
         run: npm run build
 
-      #  Install Firebase CLI
+      # 6️⃣ Install Firebase CLI
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      #  Deploy to Firebase Hosting
+      # 7️⃣ Optional: Test Firebase token
+      - name: Test Firebase token
+        run: |
+          echo "Token starts with: ${FIREBASE_TOKEN:0:8}"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      # 8️⃣ Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
