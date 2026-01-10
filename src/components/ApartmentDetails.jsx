@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router'
-import { doc, getDoc, collection, addDoc, query, where, getDocs, Timestamp, runTransaction } from 'firebase/firestore'
+import { doc, getDoc, collection, query, where, getDocs, addDoc, Timestamp, runTransaction } from 'firebase/firestore'
 import { db } from '/public/config/firebaseinit'
 import { sendEmailVerification } from "firebase/auth";
 import { useAuth } from '/public/ctx/FirebaseAuth'
@@ -11,7 +11,7 @@ import { DayPicker } from "react-day-picker";
 export default function ApartmentDetails() {
   const { apartmentId } = useParams();
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, isAdmin } = useAuth();
 
   const [apartment, setApartment] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -65,7 +65,9 @@ export default function ApartmentDetails() {
         );
         const snapshot = await getDocs(q);
 
-        const ranges = snapshot.docs.map((doc) => {
+        const ranges = snapshot.docs
+        .filter(doc => doc.data().status === "active")   // <-- filter active only
+        .map((doc) => {
           const data = doc.data();
           return {
             from: normalizeDate(data.from.toDate()),
@@ -135,47 +137,73 @@ export default function ApartmentDetails() {
     }
 
     try {
-      // Firestore Transaction
-      await runTransaction(db, async (tx) => {
-        const q = query(
-          collection(db, "reservations"),
-          where("apartmentId", "==", apartmentId)
-        );
-        const snapshot = await getDocs(q);
+    await runTransaction(db, async (tx) => {
+      const reservationsRef = collection(db, "reservations");
+      
+      // Fetch user's active reservations this month
+      const snapshot = await getDocs(
+        query(
+          reservationsRef,
+          where("userId", "==", user.uid),
+          where("status", "==", "active")
+        )
+      );
 
-        const existingRanges = snapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            from: normalizeDate(data.from.toDate()),
-            to: normalizeDate(data.to.toDate()),
-          };
-        });
-
-        if (
-          existingRanges.some(
-            (r) => newRange.from <= r.to && newRange.to >= r.from
-          )
-        ) {
-          throw new Error("Already booked in Firestore");
-        }
-
-        await addDoc(collection(db, "reservations"), {
-          apartmentId,
-          userId: user.uid,
-          from: Timestamp.fromDate(newRange.from),
-          to: Timestamp.fromDate(newRange.to),
-          createdAt: Timestamp.now(),
-        });
+      const now = new Date();
+      const userActiveReservationsThisMonth = snapshot.docs.filter((doc) => {
+        const data = doc.data();
+        const resDate = data.from.toDate();
+        return resDate.getMonth() === now.getMonth() &&
+               resDate.getFullYear() === now.getFullYear();
       });
 
-      alert("Reservation successful!");
+      if (userActiveReservationsThisMonth.length >= 2 && !isAdmin) {
+        throw new Error("MONTHLY_LIMIT");
+      }
 
-      // Block dates locally
+      // Enforce max 7 days unless admin
+      const MS_PER_DAY = 1000 * 60 * 60 * 24;
+      const diffDays = Math.ceil((newRange.to - newRange.from + 1) / MS_PER_DAY);
+
+      if (diffDays > 7 && !isAdmin) {
+        throw new Error("TOO_LONG");
+      }
+
+      // Create reservation doc
+      const reservationId = `${apartmentId}_${user.uid}_${Date.now()}`;
+      const reservationRef = doc(reservationsRef, reservationId);
+
+      tx.set(reservationRef, {
+        apartmentId,
+        userId: user.uid,
+        from: Timestamp.fromDate(newRange.from),
+        to: Timestamp.fromDate(newRange.to),
+        nights: diffDays,
+        createdAt: Timestamp.now(),
+        status: "active",
+        admin: isAdmin
+      });
+    });
+    
+      // on success ui
+      alert("Reservation successful!");
       setBookedRanges((prev) => [...prev, newRange]);
       setRange({ from: undefined, to: undefined });
-    } catch (err) {
+    
+    }catch (err) {
       console.error("Reservation failed:", err);
-      alert("Failed to make reservation. The range may already be booked.");
+
+      // errors ui
+      switch (err.message) {
+        case "ALREADY_RESERVED":
+          alert("You already have a reservation for this apartment.");
+          break;
+        case "TOO_LONG":
+          alert("Reservations longer than 7 days require confirmation. Please give us a call.");
+          break;
+        default:
+          alert("Failed to make reservation. Please give us a call.");
+      }
     }
   };
 
