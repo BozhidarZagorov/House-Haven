@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router";
 import { auth } from "/public/config/firebaseinit";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from '/public/ctx/FirebaseAuth'
+import { useTranslation } from "react-i18next";
 
 export default function Login (){
+  const { t } = useTranslation();
   const emailRef = useRef();
   const passwordRef = useRef();
   const [error, setError] = useState("");
@@ -32,7 +34,7 @@ export default function Login (){
     try {
       const userCredentials = await signInWithEmailAndPassword(auth, email, password);
       if (!userCredentials.user.emailVerified) {
-        alert("Please verify your email to have access to functionality.");
+        alert(t("login.alrt"));
       }
       console.log("User logged in:", email);
       navigate("/"); // Redirect to Home
@@ -67,7 +69,7 @@ export default function Login (){
               className="mx-auto h-10 w-auto"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-              Log in to your account
+              {t("login.loginAcc")}
             </h2>
           </div>
   
@@ -78,7 +80,7 @@ export default function Login (){
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                  Email address
+                  {t("login.emAdd")}
                 </label>
                 <div className="mt-2">
                   <input
@@ -96,7 +98,7 @@ export default function Login (){
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                    Password
+                    {t("login.pass")}
                   </label>
                   {/* <div className="text-sm">
                     <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
@@ -123,7 +125,7 @@ export default function Login (){
                   disabled={loading}
                   className="flex w-full justify-center btn-orange"
                 >
-                  {loading ? "Logging in..." : "Log in"}
+                  {loading ? t("login.loggin") : t("login.login")}
                 </button>
                 
                 <button
@@ -151,7 +153,7 @@ export default function Login (){
                   </svg>
                  
                   <span>
-                      {googleLoading ? "Logging in..." : "Continue with Google"}
+                      {googleLoading ? t("login.loggin") : t("login.googleLog")}
                   </span>
                   </button>
 
@@ -164,9 +166,9 @@ export default function Login (){
             </form>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
-              Not a member?{' '}
+             {t("login.notMem")}{' '}
               <Link to="/register" className="font-semibold text-orange-600 hover:text-orange-500">
-                Register
+                {t("login.reg")}
               </Link>
             </p>
           </div>

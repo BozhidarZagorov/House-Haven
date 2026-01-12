@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "/public/config/firebaseinit";
 import { useAuth } from "/public/ctx/FirebaseAuth";
+import { useTranslation } from "react-i18next";
 
 
 export default function Home() {
+      const { t } = useTranslation();
       const [bgUrl, setBgUrl] = useState("");
       const [bgFile, setBgFile] = useState(null);
       const [loading, setLoading] = useState(true);
@@ -81,14 +83,14 @@ export default function Home() {
     >
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
         <div className="text-container text-center">
-          <h1 className="main-title">GuestHouse Haven</h1>
+          <h1 className="main-title">{t("home.title")}</h1>
           <p className="main-subtitle">
-            Explore Rodopa Mountain's Hidden Paradice
+            {t("home.subtitle")}
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link to="/apartments" className="btn-orange">
-              Make reservation
+              {t("home.make")}
             </Link>
           </div>
 

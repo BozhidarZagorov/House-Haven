@@ -2,11 +2,13 @@ import { useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router'
 import emailjs from '@emailjs/browser'
 import { useAuth } from '/public/ctx/FirebaseAuth'
+import { useTranslation } from "react-i18next"
 
 
 import { Field, Label, Switch } from '@headlessui/react'
 
 export default function About() {
+    const { t } = useTranslation();
     const [agreed, setAgreed] = useState(false)
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -44,42 +46,42 @@ export default function About() {
 
     const validators = {
         title: (v) => {
-          if (!v) return "Title is required";
-          if (v.length < 3) return "Title must be at least 3 characters";
-          if (v.length > 60) return "Title must be under 60 characters";
+          if (!v) return t("contacts.titleReq");
+          if (v.length < 3) return t("contacts.title3chars");
+          if (v.length > 60) return t("contacts.title60chars");
           return "";
         },
     
         firstName: (v) => {
-          if (!v) return "First name is required";
-          if (v.length < 2) return "Must be at least 2 characters";
+          if (!v) return t("contacts.fNameReq");
+          if (v.length < 2) return t("contacts.fName2Chars");
           return "";
         },
     
         lastName: (v) => {
-          if (!v) return "Last name is required";   
-          if (v.length < 2) return "Must be at least 2 characters";
+          if (!v) return t("contacts.lNameReq");   
+          if (v.length < 2) return t("contacts.lName2Chars");
           return "";
         },
     
         email: (v) => {
-          if (!v) return "Email is required";
+          if (!v) return t("contacts.emailReq");
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
-            return "Enter a valid email address";
+            return t("contacts.validEmail");
           return "";
         },
     
         phone: (v) => {
-          if (!v) return "Phone number is required";
+          if (!v) return t("contacts.phoneReq");
           if (!/^\d{10}$/.test(v))
-            return "Phone number must be exactly 10 digits";
+            return t("contacts.phone10D");
           return "";
         },
     
         message: (v) => {
-          if (!v) return "Message is required";
-          if (v.length < 10) return "Message must be at least 10 characters";
-          if (v.length > 500) return "Message must be under 500 characters";
+          if (!v) return t("contacts.msgReq");
+          if (v.length < 10) return t("contacts.msg10chars");
+          if (v.length > 500) return t("contacts.msg500chars");
           return "";
         },
     };
@@ -96,10 +98,11 @@ export default function About() {
 
     const handleNameChange = (e) => {
         const { name, value } = e.target;
-        if (/^[A-Za-z]*$/.test(value)) {
-            setFormData(prev => ({ ...prev, [name]: value }));
-            validateField(name, value);
-    }
+        
+        if (/^[\p{L}\s'-]*$/u.test(value)) {
+          setFormData(prev => ({ ...prev, [name]: value }));
+          validateField(name, value);
+        }
     };
 
     const handleMessageChange = (e) => {
@@ -114,11 +117,11 @@ export default function About() {
 
         if (!isAuthenticated) {
             navigate("/login"); // Redirect to login if not auth
-            return alert('You must be logged in to send E-mails.');
+            return alert(t("contacts.loggedReq"));
         }
 
         if (!agreed) {
-            alert('You must first agree to our Privacy Policy by checking the box below to send E-mails!')
+            alert(t("contacts.agreeReq"))
             return // returns if privacy policy is not selected
         }
 
@@ -127,7 +130,7 @@ export default function About() {
         });
 
         if (Object.values(errors).some(Boolean)) {
-            return alert("Please fix the errors before submitting.");
+            return alert(t("contacts.fixErr"));
         }
 
         const templateParams = {
@@ -174,13 +177,13 @@ export default function About() {
     return (
         <div className="contactground-container min-h-screen flex flex-col">
             <div className="mx-auto max-w-2xl text-center mt-10">
-                <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">Contact us</h2>
-                <p className="mt-2 text-lg/8 text-white">Send us an E-mail if you have any questions about your upcoming adventure</p>
+                <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">{t("contacts.contactUs")}</h2>
+                <p className="mt-2 text-lg/8 text-white">{t("contacts.send")}</p>
             </div>
             <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-10">
                     <div className="sm:col-span-2">
                         <label htmlFor="email" className="block text-sm/6 font-semibold text-white">
-                            Title
+                            {t("contacts.title")}
                         </label>
                         <div className="mt-2.5">
                             <input
@@ -200,8 +203,8 @@ export default function About() {
                     </div>
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                     <div>
-                        <label htmlFor="first-name" className="block text-sm/6 font-semibold text-white">
-                            First name
+                        <label htmlFor="firstName" className="block text-sm/6 font-semibold text-white">
+                            {t("contacts.fName")}
                         </label>
                         <div className="mt-2.5">
                             <input
@@ -218,8 +221,8 @@ export default function About() {
                         </p>
                     </div>
                     <div>
-                        <label htmlFor="last-name" className="block text-sm/6 font-semibold text-white">
-                            Last name
+                        <label htmlFor="lastName" className="block text-sm/6 font-semibold text-white">
+                            {t("contacts.lName")}
                         </label>
                         <div className="mt-2.5">
                             <input
@@ -237,7 +240,7 @@ export default function About() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="email" className="block text-sm/6 font-semibold text-white">
-                            Email
+                            {t("contacts.email")}
                         </label>
                         <div className="mt-2.5">
                             <input
@@ -256,7 +259,7 @@ export default function About() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="phone-number" className="block text-sm/6 font-semibold text-white">
-                            Phone number
+                            {t("contacts.phoneNum")}
                         </label>
                         <div className="mt-2.5">
                             <div className="flex rounded-md bg-white opacity-70 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-orange-600">
@@ -279,7 +282,7 @@ export default function About() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="message" className="block text-sm/6 font-semibold text-white">
-                            Message
+                            {t("contacts.msg")}
                         </label>
                         <div className="mt-2.5">
                             <textarea
@@ -313,9 +316,9 @@ export default function About() {
                             </Switch>
                         </div>
                         <Label className="text-sm/6 text-white">
-                            By selecting this, you agree to our{' '}
+                            {t("contacts.agree")}{' '}
                             <Link to="/privacyPolicy" className="font-semibold text-orange-600">
-                                Privacy&nbsp;Policy
+                                {t("contacts.privacy")}
                             </Link>
                             .
                         </Label>
@@ -327,7 +330,7 @@ export default function About() {
                         disabled={loading}  
                         className="block w-full btn-orange"
                     >
-                    {loading ? 'Sending E-mail' : 'Send E-mail'}
+                    {loading ? t("contacts.sending") : t("contacts.sendEm")}
                         
                     </button>
                     {loading ? 
