@@ -1,0 +1,205 @@
+{
+  "nav": {
+    "home": "Home",
+    "apartments": "Apartments",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "GuestHouse Haven",
+    "subtitle": "Explore Rodopa Mountain's Hidden Paradice!",
+    "make":"Make Reservation"
+  },
+  "apartment": {
+    "title": "Rent an apartment",
+    "subtitle": "For your ultimate living experience!",
+    "day":"day",
+    "value":"Euro",
+    "details":"View apartment details",
+    "selectDateRange": "Please select a date range",
+    "selfr":"From",
+    "selTo":"To",
+    "makeRsrv":"Make a reservation",
+    "detls":"Details",
+    "verv":"Verify your email to make a reservation",
+    "plslogin":"Please log in to make a reservation.",
+    "aTable":"Admin table – Reservations",
+    "noRsrv":"No reservations for this month.",
+    "confirm":"Confirm",
+    "cancel":"Cancel",
+    "remove":"Remove",
+    "name":"GuestHouse Haven – Dospat",
+    "selDts":"Reservation Calendar"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "addButton": "Add Picture",
+    "sort":"Sort",
+    "all":"All",
+    "mostLiked":"Most Liked"
+  },
+  "galleryItem": {
+    "likes":"Likes"
+  },
+  "header": {
+    "home":"Home",
+    "apartments":"Apartments",
+    "gallery":"Gallery",
+    "logout":"Log out",
+    "login":"Log in",
+    "register":"Register"
+  },
+  "footer": {
+    "copy":"GuestHouse Haven. All rights reserved.",
+    "privacy":"Privacy Policy",
+    "terms":"Terms of Service",
+    "contacts":"Contacts"
+  },
+  "contacts": {
+    "contactUs":"Contact us",
+    "send":"Send us an E-mail if you have any questions about your upcoming adventure",
+    "title":"Title",
+    "fName":"First name",
+    "lName":"Last name",
+    "email":"Email",
+    "phoneNum":"Phone number",
+    "msg":"Message",
+    "agree":"By selecting this, you agree to our",
+    "privacy":"Privacy Policy",
+    "sending":"Sending E-mail",
+    "sendEm":"Send E-mail",
+    "titleReq":"Title is required",
+    "title3chars":"Title must be at least 3 characters",
+    "title60chars":"Title must be under 60 characters",
+    "fNameReq":"First name is required",
+    "fName2Chars":"Must be at least 2 characters",
+    "lNameReq":"Last name is required",
+    "lName2Chars":"Must be at least 2 characters",
+    "emailReq":"Email is required",
+    "validEmail":"Enter a valid email address",
+    "phoneReq":"Phone number is required",
+    "phone10D":"Phone number must be exactly 10 digits",
+    "msgReq":"Message is required",
+    "msg10chars":"Message must be at least 10 characters",
+    "msg500chars":"Message must be under 500 characters",
+    "loggedReq":"You must be logged in to send E-mails.",
+    "agreeReq":"You must first agree to our Privacy Policy by checking the box below to send E-mails!",
+    "fixErr":"Please fix the errors before submitting."
+
+  },
+  "galleryPic": {
+    "likes": "Likes",
+    "like": "Like",
+    "delPic" : "Delete Picture"
+  },
+  "buttons": {
+    "reserve": "Make a reservation",
+    "loginGoogle": "Continue with Google",
+    "update": "Update",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "login": {
+    "loginAcc":"Log in to your account",
+    "emAdd":"Email address",
+    "pass":"Password",
+    "loggin":"Logging in...",
+    "login":"Log in",
+    "googleLog":"Continue with Google",
+    "notMem":"Not a member?",
+    "reg":"Register",
+    "alrt":"Please verify your email to have access to functionality."
+  },
+  "register": {
+    "regAcc":"Register your account",
+    "emAdd":"Email address",
+    "pass":"Password",
+    "almem":"Already a member?",
+    "log":"Log in",
+    "regIn":"Registering...",
+    "googleReg":"Continue with Google",
+    "reg":"Register",
+    "verv":"Verification email sent. Please check your inbox and spam.",
+    "emailEx":"Email is already in use!",
+    "emailInv":"Email is invalid!",
+    "passErr":"Password is too weak!"
+  },
+  "404": {
+    "pgX": "Page not found",
+    "srr": "Sorry, we couldn’t find the page you’re looking for.",
+    "back": "Go back to home",
+    "or":"or",
+    "supp": "Contact support"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "This Privacy Policy outlines how we collect, use, and protect your personal data when using our GuestHouse Haven app.",
+    "dataCollectionTitle": "1. Data Collection",
+    "dataCollectionText": "We collect user data such as email addresses, images uploaded, and interaction data for improving our services.",
+    "useInfoTitle": "2. Use of Information",
+    "useInfoText": "Your data is used for app functionality, personalized experiences, and service improvement.",
+    "dataSharingTitle": "3. Data Sharing",
+    "dataSharingText": "We do not sell your data. It is only shared with third-party services necessary for app functionality, such as Cloudinary for image hosting and Firebase.",
+    "securityTitle": "4. Security Measures",
+    "securityText": "We take security seriously and implement measures to protect your personal data.",
+    "userRightsTitle": "5. User Rights",
+    "userRightsText": "You have the right to request data deletion or modification at any time. Contact us through the contact page.",
+    "agreement": "By using our app, you agree to the terms in this Privacy Policy."
+  },
+
+  "terms": {
+    "title": "Terms of Service",
+    "intro": "Welcome to our GuestHouse Haven app. By using our services, you agree to these Terms of Service. Please read them carefully.",
+    "acceptanceTitle":"1. Acceptance of Terms",
+    "acceptance": "By accessing or using our app, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you may not use our services.",
+    "providence":"Our app provides the following features:",
+    "servicesTitle": "2. Services Provided",
+    "servicesList": {
+      "home": "Home page",
+      "rent": "Rent an apartment page",
+      "gallery": "Picture gallery",
+      "contact": "Contact page"
+    },
+    "accountsTitle": "3. User Accounts",
+    "accountsText": "Some features may require an account. You agree to provide accurate information, keep your login credentials secure, and be responsible for activity under your account. We reserve the right to suspend or delete accounts that violate these Terms.",
+    "responsibilitiesTitle": "4. User Responsibilities",
+    "responsibilitiesText": "Users must comply with all applicable laws and respect other users. You agree not to upload any content that is illegal, offensive, or violates intellectual property rights.",
+    "contentRules": {
+      "rights": "You have rights to the content you upload.",
+      "noInfringement": "Your content does not infringe on third-party rights.",
+      "noOffensive": "Your content is not offensive, illegal, or inappropriate."
+    },
+    "contentRemoval": "We may remove content that violates these guidelines.",
+    "contentLicense": "Users retain ownership of the content they upload but grant us a license to use, display, and distribute it within the app.",
+    "prohibitedTitle": "6. Prohibited Activities",
+    "prohibitedList": {
+      "illegal": "Use the App for any illegal or fraudulent activities.",
+      "harmful": "Upload harmful, misleading, or infringing content.",
+      "hack": "Attempt to disrupt or hack the App’s functionality.",
+      "misuse": "Misuse personal information of other users."
+    },
+    "rentalTitle": "7. Rental Listings",
+    "rentalText": "Our rental listings are provided for informational purposes. We do not guarantee availability, pricing accuracy, or the condition of listed properties. Renters are responsible for their own agreements.",
+    "liabilityTitle": "8. Limitation of Liability",
+    "liabilityText": "We are not responsible for any damages or losses resulting from the use of our app. The service is provided \"as is\" without any warranties.",
+    "terminationTitle": "9. Termination",
+    "terminationText": "We reserve the right to terminate or suspend your access to our app at any time if you violate these Terms of Service.",
+    "changesTitle": "10. Changes to Terms",
+    "changesText": "We may update these Terms of Service from time to time. Continued use of the app after changes are made constitutes acceptance of the new terms.",
+    "lastUpdated": "Last updated:",
+     "contentOwnershipTitle": "5. Content Ownership",
+    "contentOwnershipText": "We reserve the right to suspend or delete accounts that violate these Terms.",
+
+    "accountRulesTitle": "You may not:",
+    "accountRules": {
+      "accurateInfo": "Provide accurate information.",
+      "secureCredentials": "Keep your login credentials secure.",
+      "responsibility": "Be responsible for activity under your account."
+    }
+  },
+  "errors": {
+    "alreadyReserved": "You already have a reservation for this apartment.",
+    "tooLong": "Reservations longer than 7 days require confirmation. Please give us a call.",
+    "fail":"Failed to make reservation. Please give us a call."
+  }
+}

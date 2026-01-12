@@ -7,11 +7,19 @@ import { useAuth } from '/public/ctx/FirebaseAuth';
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { UserIcon } from '@heroicons/react/24/solid';
 
+import { useTranslation } from "react-i18next";
+
+
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Apartments() {
+    const { t, i18n } = useTranslation();
+    const tr = (value) => value?.[i18n.language] ?? value?.en ?? "";
+
+
     const [apartments, setApartments] = useState({})
     const [loading, setLoading] = useState(true)
     const { user } = useAuth();
@@ -80,11 +88,11 @@ export default function Apartments() {
                 </div>
             <div className="mx-auto max-w-4xl text-center">
                 <p className="mt-2 text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-6xl">
-                    Rent an apartment
+                    {t("apartment.title")}
                 </p>
             </div>
             <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-gray-600 sm:text-xl/8">
-                    For your ultimate living experience.
+                    {t("apartment.subtitle")}
             </p>
             <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
                 {apartments.map((apartment,idx) => (
@@ -104,7 +112,7 @@ export default function Apartments() {
                             id={apartment.key}
                             className={classNames(apartment.featured ? 'text-orange-600' : 'text-orange-600', 'text-base/7 font-semibold')}
                         >
-                            {apartment.name}
+                            {apartment.name?.[i18n.language] || apartment.name?.en}
                         </h3>
                         <p className="mt-4 flex items-baseline gap-x-2">
                             <span
@@ -173,11 +181,11 @@ export default function Apartments() {
                                 )}
                             </span>
                             <span className={classNames(apartment.featured ? 'text-gray-400' : 'text-white-900', 'text-base')}>
-                                € Euro<UserIcon className="inline-block w-5 h-5 text-gray-500 ml-1" /> / day
+                                € {t("apartment.value")}<UserIcon className="inline-block w-5 h-5 text-gray-500 ml-1" /> / {t("apartment.day")}
                             </span>
                         </p>
                         <p className={classNames(apartment.featured ? 'text-gray-300' : 'text-white-900', 'mt-6 text-base/7')}>
-                            {apartment.description}
+                            {tr(apartment.description)}
                         </p>
                         <ul
                             role="list"
@@ -192,7 +200,7 @@ export default function Apartments() {
                                         aria-hidden="true"
                                         className={classNames(apartment.featured ? 'text-orange-600' : 'text-orange-600', 'h-6 w-5 flex-none')}
                                     />
-                                    {feature}
+                                    {tr(feature)}
                                 </li>
                             ))}
                         </ul>
@@ -205,7 +213,7 @@ export default function Apartments() {
                                 'mt-8 block text-center sm:mt-10',
                             )}
                         >
-                            View apartment details
+                            {t("apartment.details")}
                         </Link>
                     </div>
                 ))}

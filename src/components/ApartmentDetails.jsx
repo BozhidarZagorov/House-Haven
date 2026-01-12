@@ -9,7 +9,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import GoogleMap from './GoogleMap';
 
+import { useTranslation } from "react-i18next";
+
 export default function ApartmentDetails() {
+  const { t,i18n } = useTranslation();
   const { apartmentId } = useParams();
   const navigate = useNavigate();
   const { user, isAuthenticated, isAdmin } = useAuth();
@@ -201,13 +204,13 @@ export default function ApartmentDetails() {
       // errors ui
       switch (err.message) {
         case "ALREADY_RESERVED":
-          alert("You already have a reservation for this apartment.");
+          alert(t("errors.alreadyReserved"));
           break;
         case "TOO_LONG":
-          alert("Reservations longer than 7 days require confirmation. Please give us a call.");
+          alert(t("errors.tooLong"));
           break;
         default:
-          alert("Failed to make reservation. Please give us a call.");
+          alert(t("errors.fail"));
       }
     }
   };
@@ -326,7 +329,8 @@ export default function ApartmentDetails() {
         {/* Apartment info */}
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{apartment.name}</h1>
+            {/* <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{apartment.name}</h1> */}
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{apartment.name?.[i18n.language] || apartment.name?.en}</h1>
           </div>
 
           <div className="mt-4 lg:row-span-3 lg:mt-0">
@@ -350,7 +354,7 @@ export default function ApartmentDetails() {
             {/* Reservation Calendar */}
             <div className="mt-8 rounded-lg bg-white p-4 shadow">
               <h3 className="mb-3 text-lg font-semibold text-gray-900 text-center">
-                Select dates
+                {t("apartment.selDts")}
               </h3>
 
               <DayPicker
@@ -372,8 +376,8 @@ export default function ApartmentDetails() {
                 numberOfMonths={1}
                 footer={
                   range?.from && range?.to
-                    ? <h4 className='text-center'>Selected from {range.from.toLocaleDateString()} to {range.to.toLocaleDateString()}</h4>
-                    : <h4 className='text-center'>Please select a date range</h4>
+                    ? <h4 className='text-center'>{t("apartment.selfr")} {range.from.toLocaleDateString()} {t("apartment.selTo")} {range.to.toLocaleDateString()}</h4>
+                    : <h4 className='text-center'>{t("apartment.selectDateRange")}</h4>
                 }
               />
 
@@ -390,7 +394,7 @@ export default function ApartmentDetails() {
                       }
                     `}
                   >
-                    Make a reservation
+                    {t("apartment.makeRsrv")}
                   </button>
                 )}
 
@@ -408,14 +412,14 @@ export default function ApartmentDetails() {
                     }}
                     className="mt-4 w-full text-sm text-orange-600 underline"
                   >
-                    Verify your email to make a reservation
+                    {t("apartment.verv")}
                   </button>
                 )}
 
                 {/* NOT LOGGED IN */}
                 {!isAuthenticated && (
                   <p className="mt-4 text-center text-sm text-gray-500">
-                    Please log in to make a reservation.
+                   {t("apartment.plslogin")}
                   </p>
                 )}
             </div>
@@ -424,16 +428,16 @@ export default function ApartmentDetails() {
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16">
             {/* Details */}
             <div>
-              <h3 className="sr-only">Details</h3>
+              <h3 className="sr-only">{t("apartment.detls")}</h3>
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{apartment.details || 'No details available.'}</p>
+                <p className="text-base text-gray-900">{apartment.details?.[i18n.language] || 'No details available.'}</p>
               </div>
             </div>
           </div>
 
             {isAdmin && (
               <div className="mt-10 rounded-lg border bg-white p-4 shadow">
-                <h2 className="mb-4 text-lg font-semibold">Admin table – Reservations</h2>
+                <h2 className="mb-4 text-lg font-semibold">{t("apartment.aTable")}</h2>
                       
                 {/* Month selector */}
                 <input
@@ -448,7 +452,7 @@ export default function ApartmentDetails() {
                 />
 
                 {adminReservations.length === 0 ? (
-                  <p className="text-sm text-gray-500">No reservations for this month.</p>
+                  <p className="text-sm text-gray-500">{t("apartment.noRsrv")}</p>
                 ) : (
                   <table className="w-full border-collapse text-sm">
                     <tbody>
@@ -469,13 +473,13 @@ export default function ApartmentDetails() {
                                     onClick={() => cancelReservation(r.id)}
                                     className="text-red-600 hover:underline"
                                   >
-                                    Confirm
+                                    {t("apartment.confirm")}
                                   </button>
                                   <button
                                     onClick={() => setConfirmingId(null)}
                                     className="text-gray-500 hover:underline"
                                   >
-                                    Cancel
+                                    {t("apartment.cancel")}
                                   </button>
                                 </div>
                               ) : (
@@ -483,7 +487,7 @@ export default function ApartmentDetails() {
                                   onClick={() => setConfirmingId(r.id)}
                                   className="text-orange-600 hover:underline"
                                 >
-                                  Remove
+                                  {t("apartment.remove")}
                                 </button>
                               )}
                             </td>
@@ -497,7 +501,7 @@ export default function ApartmentDetails() {
             )}
             <h3 className="text-lg font-semibold">
               {/* 📍 Вила Рай – Доспат */}
-              📍 GuestHouse Haven – Dospat
+              📍 {t("apartment.name")}
                 <GoogleMap />
             </h3>
         </div>

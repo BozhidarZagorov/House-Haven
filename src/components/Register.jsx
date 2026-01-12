@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router"
 import { auth } from "/public/config/firebaseinit"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth"
 import { useAuth } from '/public/ctx/FirebaseAuth'
+import { useTranslation } from "react-i18next"
 
 export default function Register (){
+  const { t } = useTranslation();
   const emailRef = useRef();
   const passwordRef = useRef();
   const [err, setError] = useState("");
@@ -34,20 +36,20 @@ export default function Register (){
       const userCredentials=await createUserWithEmailAndPassword(auth, email, password);
 
       await sendEmailVerification(userCredentials.user)
-      alert("Verification email sent. Please check your inbox.");
+      alert(t("register.verv"));
       // console.log("User registered:", email);
       navigate("/"); // Redirect to Home
     } catch (err) {
 
       switch (err.code) {
         case "auth/email-already-in-use":
-          setError("Email is already in use!");
+          setError(t("register.emailEx"));
           break;
         case "auth/invalid-email":
-          setError("Email is invalid!");
+          setError(t("register.emailInv"));
           break;
         case "auth/weak-password":
-          setError("Password is too weak!");
+          setError(t("register.passErr"));
           break
         default:
           setError(err.message)
@@ -82,7 +84,7 @@ export default function Register (){
               className="mx-auto h-10 w-auto"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-              Register your account
+              {t("register.regAcc")}
             </h2>
           </div>
   
@@ -92,7 +94,7 @@ export default function Register (){
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                  Email address
+                  {t("register.emAdd")}
                 </label>
                 <div className="mt-2">
                   <input
@@ -110,7 +112,7 @@ export default function Register (){
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                    Password
+                    {t("register.pass")}
                   </label>
                   {/* <div className="text-sm">
                     <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
@@ -137,7 +139,7 @@ export default function Register (){
                   disabled={loading}
                   className="flex w-full justify-center btn-orange"
                 >
-                  {loading ? "Registering..." : "Register"}
+                  {loading ? t("register.regIn"): t("register.reg")}
                 </button>
 
                 <button
@@ -165,7 +167,7 @@ export default function Register (){
                   </svg>
                  
                   <span>
-                      {googleLoading ? "Registering..." : "Continue with Google"}
+                      {googleLoading ? t("register.regIn") : t("register.googleReg")}
                   </span>
                   </button>
 
@@ -178,9 +180,9 @@ export default function Register (){
             </form>
   
             <p className="mt-10 text-center text-sm/6 text-gray-500">
-              Already a member?{' '}
+              {t("register.almem")}{' '}
               <Link to="/login" className="font-semibold text-orange-600 hover:text-orange-500">
-                Log in
+                {t("register.log")}
               </Link>
             </p>
           </div>

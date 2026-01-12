@@ -1,83 +1,83 @@
+import { useTranslation } from "react-i18next"
 export default function TermsOfService() {
+  const { t } = useTranslation();
   return (
     <div className="mt-20 max-w-4xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold mb-6">Terms of Service</h1>
+      <h1 className="text-4xl font-bold mb-6">{t("terms.title")}</h1>
 
       <p className="mb-4">
-        Welcome to our GuestHouse Haven app. By using our services, you agree to these Terms of Service. Please read them carefully.
+       {t("terms.intro")}
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">1. Acceptance of Terms</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.acceptanceTitle")}</h2>
       <p className="mb-4">
-        By accessing or using our app, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you may not use our services.
+        {t("terms.acceptance")}
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">2. Services Provided</h2>
-      <p className="mb-4">Our app provides the following features:</p>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.servicesTitle")}</h2>
+      <p className="mb-4">{t("terms.providence")}</p>
       <ul className="list-disc ml-6">
-        <li>Home page</li>
-        <li>Rent an apartment page</li>
-        <li>Picture gallery</li>
-        <li>Add picture to gallery</li>
-        <li>Weather forecast</li>
-        <li>Contact page</li>
+        <li>{t("terms.servicesList.home")}</li>
+        <li>{t("terms.servicesList.rent")}</li>
+        <li>{t("terms.servicesList.gallery")}</li>
+        <li>{t("terms.servicesList.contact")}</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">3. User Accounts</h2>
-      <p className="mb-4">Some features may require an account. You agree to:</p>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.accountsTitle")}</h2>
+      <p className="mb-4">{t("terms.accountsText")}</p>
       <ul className="list-disc ml-6">
-        <li>Provide accurate information.</li>
-        <li>Keep your login credentials secure.</li>
-        <li>Be responsible for activity under your account.</li>
+        <li>{t("terms.accountRules.accurateInfo")}</li>
+        <li>{t("terms.accountRules.secureCredentials")}</li>
+        <li>{t("terms.accountRules.responsibility")}</li>
       </ul>
-      <p className="mt-4">We reserve the right to suspend or delete accounts that violate these Terms.</p>
+      <p className="mt-4">{t("terms.contentOwnershipText")}</p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">4. User Responsibilities</h2>
-      <p className="mb-4">Users must comply with all applicable laws and respect other users. You agree not to upload any content that is illegal, offensive, or violates intellectual property rights.</p>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.responsibilitiesTitle")}</h2>
+      <p className="mb-4">{t("terms.responsibilitiesText")}</p>
       <ul className="list-disc ml-6">
-        <li>You have rights to the content you upload.</li>
-        <li>Your content does not infringe on third-party rights.</li>
-        <li>Your content is not offensive, illegal, or inappropriate.</li>
+        <li>{t("terms.contentRules.rights")}</li>
+        <li>{t("terms.contentRules.noInfringement")}</li>
+        <li>{t("terms.contentRules.noOffensive")}</li>
       </ul>
-      <p className="mt-4">We may remove content that violates these guidelines.</p>
+      <p className="mt-4">{t("terms.contentRemoval")}</p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">5. Content Ownership</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.contentOwnershipTitle")}</h2>
       <p className="mb-4">
-        Users retain ownership of the content they upload but grant us a license to use, display, and distribute it within the app.
+        {t("terms.contentLicense")}
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">6. Prohibited Activities</h2>
-      <p className="mb-4">You may not:</p>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.prohibitedTitle")}</h2>
+      <p className="mb-4">{t("terms.accountRulesTitle")}</p>
       <ul className="list-disc ml-6">
-        <li>Use the App for any illegal or fraudulent activities.</li>
-        <li>Upload harmful, misleading, or infringing content.</li>
-        <li>Attempt to disrupt or hack the App’s functionality.</li>
-        <li>Misuse personal information of other users.</li>
+        <li>{t("terms.prohibitedList.illegal")}</li>
+        <li>{t("terms.prohibitedList.harmful")}</li>
+        <li>{t("terms.prohibitedList.hack")}</li>
+        <li>{t("terms.prohibitedList.misuse")}</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">7. Rental Listings</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.rentalTitle")}</h2>
       <p className="mb-4">
-        Our rental listings are provided for informational purposes. We do not guarantee availability, pricing accuracy, or the condition of listed properties. Renters are responsible for their own agreements.
+        {t("terms.rentalText")}
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">8. Limitation of Liability</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.liabilityTitle")}</h2>
       <p className="mb-4">
-        We are not responsible for any damages or losses resulting from the use of our app. The service is provided "as is" without any warranties.
+        {t("terms.liabilityText")}
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">9. Termination</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.terminationTitle")}</h2>
       <p className="mb-4">
-        We reserve the right to terminate or suspend your access to our app at any time if you violate these Terms of Service.
+        {t("terms.terminationText")}
       </p>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">10. Changes to Terms</h2>
+      <h2 className="text-2xl font-semibold mt-6 mb-2">{t("terms.changesTitle")}</h2>
       <p className="mb-4">
-        We may update these Terms of Service from time to time. Continued use of the app after changes are made constitutes acceptance of the new terms.
+       {t("terms.changesText")}
       </p>
 
       {/* <p className="mt-6">Last updated: {new Date().toLocaleDateString()}</p> */}
       
-      <p className="mt-6">Last updated: 11.01.2026</p>
+      <p className="mt-6">{t("terms.lastUpdated")} 11.01.2026</p>
     </div>
   );
 }

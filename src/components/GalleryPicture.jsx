@@ -4,8 +4,10 @@ import { doc, getDoc, updateDoc, arrayUnion, deleteDoc } from 'firebase/firestor
 import { db } from '/public/config/firebaseinit'
 import { useAuth } from '/public/ctx/FirebaseAuth'
 import { useNavigate } from 'react-router'
+import { useTranslation } from "react-i18next";
 
 export default function GalleryPicture () {
+    const { t } = useTranslation();
     const { pictureId } = useParams();
     const [picture, setPicture] = useState({})
     const [loading, setLoading] = useState(true)
@@ -113,7 +115,7 @@ export default function GalleryPicture () {
                         <div className="mt-6">
                             <h3 className="sr-only">Likes</h3>
                             <div className="flex justify-center">
-                            <p className="text-lg font-medium text-indigo-600">{picture.likes} Likes</p>
+                            <p className="text-lg font-medium text-indigo-600">{picture.likes} {t("galleryPic.likes")}</p>
                             </div>
 
                         {!hasLiked && (
@@ -122,7 +124,7 @@ export default function GalleryPicture () {
                                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
                                 onClick={handleLike}
                             >
-                                Like
+                                {t("galleryPic.like")}
                             </button>
                          )}
                         </div>
@@ -144,7 +146,7 @@ export default function GalleryPicture () {
                                         className="mt-4 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                                         onClick={handleDelete}
                                     >
-                                        Delete Picture
+                                        {t("galleryPic.delPic")}
                                     </button>
                                 </>
                             )}
