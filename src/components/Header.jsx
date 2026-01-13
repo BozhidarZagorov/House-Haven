@@ -127,7 +127,7 @@ export default function Header() {
 
         {/* Drawer */}
         <div
-          className="fixed inset-y-0 right-0 w-1/2 max-w-sm bg-white shadow-xl p-6"
+          className="fixed inset-y-0 right-0 w-1/2 max-w-sm bg-white/90 shadow-xl flex flex-col"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
@@ -136,54 +136,78 @@ export default function Header() {
             transition: isDragging ? "none" : "transform 0.25s ease-out",
           }}
         >
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="menu-button"
-            >
-              <XMarkIcon className="size-6" />
-            </button>
+          {/* Header (fixed) */}
+          <div className="p-6 flex items-center justify-between border-b">
+            {/* Language switcher */}
+                <LanguageSwitcher />
           </div>
 
-          <div className="mobile-nav mt-8 space-y-4">
-            {navigation.map((item) => (
-              <Link
-                key={item.key}
-                to={item.path}
-                className="mobile-nav-link"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t(item.key)}
-              </Link>
-            ))}
+          {/* Scrollable content */}
+          <div className="flex-1 overflow-y-auto p-6">
+            <div className="mobile-nav space-y-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.key}
+                  to={item.path}
+                  className="mobile-nav-link"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t(item.key)}
+                </Link>
+              ))}
 
-            {isAuthenticated ? (
-              <Link
-                to="/logout"
-                className="logout-button"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {t("header.logout")}
-              </Link>
-            ) : (
-              <>
+              {isAuthenticated ? (
                 <Link
-                  to="/login"
+                  to="/logout"
+                  className="logout-button"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("header.logout")}
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="mobile-nav-link"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t("header.login")}
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="mobile-nav-link"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t("header.register")}
+                  </Link>
+                </>
+              )}
+
+              {/* Footer links (mobile only) */}
+              <div className="mt-8 border-t pt-4 space-y-3">
+                <Link
+                  to="/privacyPolicy"
                   className="mobile-nav-link"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t("header.login")}
+                  {t("footer.privacy")}
                 </Link>
                 <Link
-                  to="/register"
+                  to="/termsOfService"
                   className="mobile-nav-link"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t("header.register")}
+                  {t("footer.terms")}
                 </Link>
-              </>
-            )}
+                <Link
+                  to="/contacts"
+                  className="mobile-nav-link"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t("footer.contacts")}
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </Dialog>
