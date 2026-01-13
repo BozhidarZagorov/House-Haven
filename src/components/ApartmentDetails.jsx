@@ -356,15 +356,15 @@ export default function ApartmentDetails() {
               <h3 className="mb-3 text-lg font-semibold text-gray-900 text-center">
                 {t("apartment.selDts")}
               </h3>
-
+              <div className="mx-auto w-[320px] sm:w-[350px]">
               <DayPicker
                 mode="range"
                 selected={range}
                 onSelect={setRange}
-                 disabled={[
-                    { before: new Date() },
-                    ...bookedRanges.map((r) => ({ from: r.from, to: r.to })),
-                  ]}
+                disabled={[
+                  { before: new Date() },
+                  ...bookedRanges.map((r) => ({ from: r.from, to: r.to })),
+                ]}
                 modifiers={{
                   booked: bookedRanges.map((r) => ({ from: r.from, to: r.to })),
                   past: { before: new Date() },
@@ -376,10 +376,12 @@ export default function ApartmentDetails() {
                 numberOfMonths={1}
                 footer={
                   range?.from && range?.to
-                    ? <h4 className='text-center'>{t("apartment.selfr")} {range.from.toLocaleDateString()} {t("apartment.selTo")} {range.to.toLocaleDateString()}</h4>
-                    : <h4 className='text-center'>{t("apartment.selectDateRange")}</h4>
+                  ? <h4 className='text-center'>{t("apartment.selfr")} {range.from.toLocaleDateString()} {t("apartment.selTo")} {range.to.toLocaleDateString()}</h4>
+                  : <h4 className='text-center'>{t("apartment.selectDateRange")}</h4>
                 }
-              />
+                />
+
+                </div>
 
               {/* VERIFIED USER */}
                 {isAuthenticated && user?.emailVerified && (
