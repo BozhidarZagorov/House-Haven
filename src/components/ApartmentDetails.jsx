@@ -346,7 +346,17 @@ export default function ApartmentDetails() {
                 {/* {isAuthenticated && showPhone && ( */}
               {showPhone && (
                 <p className="mt-4 text-center text-lg font-medium text-gray-900">
-                  📞 088 654 8334 
+                  <span className="flex justify-center items-center gap-2">
+                    <i
+                      className="fa-solid fa-phone text-green-500 text-lg"
+                      aria-hidden="true"
+                    />
+                    088 654 8334
+                  </span>
+
+                  <span className="mt-2 flex justify-center">
+                    <i className="fa-brands fa-viber text-purple-500 text-2xl hover:scale-110 transition" />088 654 8334
+                  </span>
                 </p>
               )}
             </div>
