@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import emailjs from '@emailjs/browser'
 import { useAuth } from '/public/ctx/FirebaseAuth'
@@ -23,6 +23,22 @@ export default function About() {
     });
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
+
+
+    useEffect(() => {
+        // Not logged in
+        if (!isAuthenticated) {
+          alert(t("contacts.mustLogin"));
+          navigate("/", { replace: true });
+          return;
+        }
+
+        // Logged in but email not verified
+        if (user && !user.emailVerified) {
+          alert(t("contacts.emailNotVerified"));
+          navigate("/", { replace: true });
+        }
+      }, [isAuthenticated, user, navigate, t]);
 
 
     const validateField = (name, value) => {
@@ -115,11 +131,6 @@ export default function About() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!isAuthenticated) {
-            navigate("/login"); // Redirect to login if not auth
-            return alert(t("contacts.loggedReq"));
-        }
-
         if (!agreed) {
             alert(t("contacts.agreeReq"))
             return // returns if privacy policy is not selected
@@ -137,7 +148,7 @@ export default function About() {
             title: formData.title,
             name: `${formData.firstName} ${formData.lastName}`,
             time: new Date().toLocaleString(),
-            email: formData.email,
+            email: user?.email,
             phone: formData.phone,
             message: formData.message,
         };
@@ -153,7 +164,6 @@ export default function About() {
             );
     
             if (response.status === 200) {
-                // console.log("Email sent");
                 navigate("/");
             } else {
                 console.error("Error sending email:", response);
@@ -163,8 +173,6 @@ export default function About() {
         } finally {
             setLoading(false)
         }
-        // console.log("Sending email with:", templateParams);
-        // console.log(Object.fromEntries(templateParams));
     }
 
     if (loading) return <div className="flex items-center justify-center min-h-screen">
@@ -244,18 +252,12 @@ export default function About() {
                         </label>
                         <div className="mt-2.5">
                             <input
-                                name="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
-                                required
-                                className="block w-full rounded-md bg-white opacity-70 px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-600"
+                              type="email"
+                              value={user?.email || ""}
+                              disabled
+                              className="block w-full rounded-md bg-gray-200 px-3.5 py-2 text-base text-gray-700 cursor-not-allowed"
                             />
                         </div>
-                        <p className="min-h-[1.25rem] text-sm text-red-500">
-                            {touched.email && errors.email}
-                        </p>
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="phone-number" className="block text-sm/6 font-semibold text-white">

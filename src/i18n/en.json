@@ -56,6 +56,8 @@
     "contacts":"Contacts"
   },
   "contacts": {
+    "mustLogin": "You must be logged in to access the contact form.",
+    "emailNotVerified": "Please verify your email before contacting us.",
     "contactUs":"Contact us",
     "send":"Send us an E-mail if you have any questions about your upcoming adventure",
     "title":"Title",
